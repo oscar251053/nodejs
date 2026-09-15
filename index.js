@@ -97,7 +97,7 @@ async function ejecutar() {
   const comando = obtenerComando();
 
   if (!comando) {
-    mostrarAyuda();
+    console.log("No es un comando válido");
     return;
   }
 
