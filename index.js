@@ -28,7 +28,20 @@ async function consultarProductos(id) {
     throw new Error(`La API respondió con el estado ${respuesta.status}.`);
   }
 
-  console.log(JSON.stringify(await respuesta.json(), null, 2));
+  const data = await respuesta.json();
+
+  if (id) {
+    console.clear();
+    console.log(`El título es: ${data.title}\n\nEl precio es de: USD ${data.price}\n\nDescripción:\n${data.description}\n`);
+    return;
+  }
+
+  console.clear();
+  console.log("Listado de productos:\n");
+
+  for (const producto of data) {
+    console.log(`ID: ${producto.id}\nTítulo: ${producto.title}\nPrecio: USD ${producto.price}\nDescripción:\n${producto.description}\n`);
+  }
 }
 
 async function crearProducto(argumentos) {
@@ -53,7 +66,9 @@ async function crearProducto(argumentos) {
     throw new Error(`La API respondió con el estado ${respuesta.status}.`);
   }
 
-  console.log(JSON.stringify(await respuesta.json(), null, 2));
+  const  respPOST =await respuesta.json()
+  console.clear()
+  console.log(`El título es: ${respPOST.title}\n\nEl precio es de: USD ${respPOST.price}\n\nDescripción:\n${respPOST.description}\n`)
 }
 
 async function actualizarProducto(argumentos) {
@@ -78,7 +93,9 @@ async function actualizarProducto(argumentos) {
     throw new Error(`La API respondió con el estado ${respuesta.status}.`);
   }
 
-  console.log(JSON.stringify(await respuesta.json(), null, 2));
+  const  respPUT =await respuesta.json()
+  console.clear()
+  console.log(`El título es: ${respPUT.title}\n\nEl precio es de: USD ${respPUT.price}\n\nDescripción:\n${respPUT.description}\n`)
 }
 
 async function eliminarProducto(id) {
@@ -90,7 +107,9 @@ async function eliminarProducto(id) {
     throw new Error(`La API respondió con el estado ${respuesta.status}.`);
   }
 
-  console.log(JSON.stringify(await respuesta.json(), null, 2));
+  const  respDEL =await respuesta.json()
+  console.clear()
+  console.log(`El título es: ${respDEL.title}\n\nEl precio es de: USD ${respDEL.price}\n\nDescripción:\n${respDEL.description}\n`)
 }
 
 async function ejecutar() {
