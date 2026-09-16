@@ -32,7 +32,7 @@ async function consultarProductos(id) {
 
   if (id) {
     console.clear();
-    console.log(`El título es: ${data.title}\n\nEl precio es de: USD ${data.price}\n\nDescripción:\n${data.description}\n`);
+    console.log(`Título: ${data.title}\n\nPrecio: USD ${data.price}\n\nCategoría: ${data.category}\n`);
     return;
   }
 
@@ -40,7 +40,7 @@ async function consultarProductos(id) {
   console.log("Listado de productos:\n");
 
   for (const producto of data) {
-    console.log(`ID: ${producto.id}\nTítulo: ${producto.title}\nPrecio: USD ${producto.price}\nDescripción:\n${producto.description}\n`);
+    console.log(`ID: ${producto.id}\nTítulo: ${producto.title}\nPrecio: USD ${producto.price}\nCategoría: ${producto.category}\n`);
   }
 }
 
@@ -59,43 +59,22 @@ async function crearProducto(argumentos) {
   const respuesta = await fetch(`${API_URL}/products`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ title, price: precioNumerico, category }),
+    body: JSON.stringify({
+      title,
+      price: precioNumerico,
+      category,
+      description: "Sin descripción disponible",
+    }),
   });
 
   if (!respuesta.ok) {
     throw new Error(`La API respondió con el estado ${respuesta.status}.`);
   }
 
-  const  respPOST =await respuesta.json()
-  console.clear()
-  console.log(`El título es: ${respPOST.title}\n\nEl precio es de: USD ${respPOST.price}\n\nDescripción:\n${respPOST.description}\n`)
-}
-
-async function actualizarProducto(argumentos) {
-  const [id, title, price, category] = argumentos;
-
-  if (!id || !title || !price || !category) {
-    throw new Error("Para actualizar un producto debes indicar id, title, price y category.");
-  }
-
-  const precioNumerico = Number(price);
-  if (Number.isNaN(precioNumerico)) {
-    throw new Error("El precio debe ser un número.");
-  }
-
-  const respuesta = await fetch(`${API_URL}/products/${validarId(id)}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ title, price: precioNumerico, category }),
-  });
-
-  if (!respuesta.ok) {
-    throw new Error(`La API respondió con el estado ${respuesta.status}.`);
-  }
-
-  const  respPUT =await respuesta.json()
-  console.clear()
-  console.log(`El título es: ${respPUT.title}\n\nEl precio es de: USD ${respPUT.price}\n\nDescripción:\n${respPUT.description}\n`)
+  const respPOST = await respuesta.json();
+  console.clear();
+  console.log("Se agregó:\n");
+  console.log(`Título: ${respPOST.title}\n\nPrecio: USD ${respPOST.price}\n\nCategoría: ${respPOST.category}\n`);
 }
 
 async function eliminarProducto(id) {
@@ -109,7 +88,8 @@ async function eliminarProducto(id) {
 
   const  respDEL =await respuesta.json()
   console.clear()
-  console.log(`El título es: ${respDEL.title}\n\nEl precio es de: USD ${respDEL.price}\n\nDescripción:\n${respDEL.description}\n`)
+  console.log("Se borró:\n")
+  console.log(`Título: ${respDEL.title}\n\nPrecio: USD ${respDEL.price}\n\nCategoría: ${respDEL.category}\n`)
 }
 
 async function ejecutar() {
@@ -134,14 +114,6 @@ async function ejecutar() {
 
   if (comando.metodo === "POST") {
     await crearProducto(comando.argumentos);
-    return;
-  }
-
-  if (comando.metodo === "PUT") {
-    if (comando.argumentos.length !== 4) {
-      throw new Error("PUT necesita un ID, title, price y category.");
-    }
-    await actualizarProducto(comando.argumentos);
     return;
   }
 
