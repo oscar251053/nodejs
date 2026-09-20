@@ -63,7 +63,6 @@ async function crearProducto(argumentos) {
       title,
       price: precioNumerico,
       category,
-      description: "Sin descripción disponible",
     }),
   });
 
@@ -101,7 +100,8 @@ async function ejecutar() {
   }
 
   if (comando.recurso !== "products") {
-    throw new Error("Por ahora solo está disponible el recurso products.");
+    console.clear()
+    throw new Error("El comando debe de ser: \nnpm run start GET / POST / DELETE \x1b[1;33mproducts\x1b[0m y los argumentos correspondientes \no \nnode index.js método la palabra \x1b[1;33mproducts\x1b[0m y argumentos\n");
   }
 
   if (comando.metodo === "GET") {
