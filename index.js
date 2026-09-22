@@ -76,6 +76,50 @@ async function crearProducto(argumentos) {
   console.log(`Título: ${respPOST.title}\n\nPrecio: USD ${respPOST.price}\n\nCategoría: ${respPOST.category}\n`);
 }
 
+async function actualizarProducto(id, argumentos) {
+  const [title, price, category] = argumentos;
+
+  validarId(id);
+
+  if (!title || !price || !category) {
+    throw new Error(
+      "Para actualizar un producto debes indicar title, price y category."
+    );
+  }
+
+  const precioNumerico = Number(price);
+
+  if (Number.isNaN(precioNumerico)) {
+    throw new Error("El precio debe ser un número.");
+  }
+
+  const respuesta = await fetch(`${API_URL}/products/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      title,
+      price: precioNumerico,
+      category,
+    }),
+  });
+
+  if (!respuesta.ok) {
+    throw new Error(`La API respondió con el estado ${respuesta.status}.`);
+  }
+
+  const respPUT = await respuesta.json();
+
+  console.clear();
+
+  console.log("Se actualizó:\n");
+
+  console.log(
+    `ID: ${respPUT.id}\n\nTítulo: ${respPUT.title}\n\nPrecio: USD ${respPUT.price}\n\nCategoría: ${respPUT.category}\n`
+  );
+}
+
 async function eliminarProducto(id) {
   const respuesta = await fetch(`${API_URL}/products/${validarId(id)}`, {
     method: "DELETE",
@@ -114,6 +158,19 @@ async function ejecutar() {
 
   if (comando.metodo === "POST") {
     await crearProducto(comando.argumentos);
+    return;
+  }
+  
+  if (comando.metodo === "PUT") {
+    if (comando.argumentos.length !== 4) {
+      throw new Error(
+        "PUT necesita un ID, title, price y category."
+      );
+    }
+
+    const [id, ...datos] = comando.argumentos;
+
+    await actualizarProducto(id, datos);
     return;
   }
 
