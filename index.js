@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const API_URL = "https://fakestoreapi.com";
 const [, , method, resource, ...params] = process.argv;
 const parseResource = (resource = "") => {
@@ -103,9 +102,7 @@ Debes ejecutar un comando válido:
   }
 };
 
-main();
-=======
-import express from 'express';
+main();import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
@@ -143,4 +140,3 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
->>>>>>> 415c32a (PFI primer intento)
