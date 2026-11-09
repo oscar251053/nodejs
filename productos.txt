@@ -1,0 +1,118 @@
+ID: 1
+Título: Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops
+Precio: USD 109.95
+Categoría: men's clothing
+
+
+ID: 2
+Título: Mens Casual Premium Slim Fit T-Shirts 
+Precio: USD 22.3
+Categoría: men's clothing
+
+
+ID: 3
+Título: Mens Cotton Jacket
+Precio: USD 55.99
+Categoría: men's clothing
+
+
+ID: 4
+Título: Mens Casual Slim Fit
+Precio: USD 15.99
+Categoría: men's clothing
+
+
+ID: 5
+Título: John Hardy Women's Legends Naga Gold & Silver Dragon Station Chain Bracelet
+Precio: USD 695
+Categoría: jewelery
+
+
+ID: 6
+Título: Solid Gold Petite Micropave 
+Precio: USD 168
+Categoría: jewelery
+
+
+ID: 7
+Título: White Gold Plated Princess
+Precio: USD 9.99
+Categoría: jewelery
+
+
+ID: 8
+Título: Pierced Owl Rose Gold Plated Stainless Steel Double
+Precio: USD 10.99
+Categoría: jewelery
+
+
+ID: 9
+Título: WD 2TB Elements Portable External Hard Drive - USB 3.0 
+Precio: USD 64
+Categoría: electronics
+
+
+ID: 10
+Título: SanDisk SSD PLUS 1TB Internal SSD - SATA III 6 Gb/s
+Precio: USD 109
+Categoría: electronics
+
+
+ID: 11
+Título: Silicon Power 256GB SSD 3D NAND A55 SLC Cache Performance Boost SATA III 2.5
+Precio: USD 109
+Categoría: electronics
+
+
+ID: 12
+Título: WD 4TB Gaming Drive Works with Playstation 4 Portable External Hard Drive
+Precio: USD 114
+Categoría: electronics
+
+
+ID: 13
+Título: Acer SB220Q bi 21.5 inches Full HD (1920 x 1080) IPS Ultra-Thin
+Precio: USD 599
+Categoría: electronics
+
+
+ID: 14
+Título: Samsung 49-Inch CHG90 144Hz Curved Gaming Monitor (LC49HG90DMNXZA) – Super Ultrawide Screen QLED 
+Precio: USD 999.99
+Categoría: electronics
+
+
+ID: 15
+Título: BIYLACLESEN Women's 3-in-1 Snowboard Jacket Winter Coats
+Precio: USD 56.99
+Categoría: women's clothing
+
+
+ID: 16
+Título: Lock and Love Women's Removable Hooded Faux Leather Moto Biker Jacket
+Precio: USD 29.95
+Categoría: women's clothing
+
+
+ID: 17
+Título: Rain Jacket Women Windbreaker Striped Climbing Raincoats
+Precio: USD 39.99
+Categoría: women's clothing
+
+
+ID: 18
+Título: MBJ Women's Solid Short Sleeve Boat Neck V 
+Precio: USD 9.85
+Categoría: women's clothing
+
+
+ID: 19
+Título: Opna Women's Short Sleeve Moisture
+Precio: USD 7.95
+Categoría: women's clothing
+
+
+ID: 20
+Título: DANVOUY Womens T Shirt Casual Cotton Short
+Precio: USD 12.99
+Categoría: women's clothing
