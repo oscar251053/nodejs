@@ -61,7 +61,7 @@ Respuesta:
 Para crear, actualizar o eliminar productos, incluye ese token en el encabezado:
 
 ```http
-Authorization: Bearer eyJ...
+Authorization: Bearer TU_TOKEN
 ```
 
 ## Rutas
