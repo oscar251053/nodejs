@@ -1,13 +1,7 @@
 {
-<<<<<<< HEAD
   "name": "preentrega",
   "version": "1.0.0",
   "description": "CLI sencilla para gestionar productos con FakeStore API",
-=======
-  "name": "src",
-  "version": "1.0.0",
-  "description": "",
->>>>>>> 415c32a (PFI primer intento)
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -16,9 +10,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-<<<<<<< HEAD
-  "type": "module"
-=======
   "type": "module",
   "dependencies": {
     "body-parser": "^2.4.0",
@@ -28,5 +19,4 @@
     "firebase": "^13.2.0",
     "jsonwebtoken": "^9.0.3"
   }
->>>>>>> 415c32a (PFI primer intento)
 }
