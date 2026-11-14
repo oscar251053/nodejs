@@ -12,13 +12,12 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// 1. Middleware CORS: Permite peticiones desde el frontend [citation:6][citation:12]
+// 1. Middleware CORS: Permite peticiones desde el frontend
 app.use(cors());
 
 // 2. Middleware Body-Parser: Interpreta el cuerpo de las peticiones como JSON
 app.use(bodyParser.json());
 
-// (Aquí irán las rutas en el siguiente paso)
 app.use('/api/products', productsRoutes);
 app.use('/auth', authRoutes);
 
@@ -33,6 +32,10 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Error interno del servidor' });
 });
 
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
-});
+if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  });
+}
+
+export default app;

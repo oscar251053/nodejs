@@ -42,5 +42,10 @@ export const updateExistingProduct = async (id, productData) => {
 };
 
 export const deleteProductById = async (id) => {
-  return deleteProduct(id);
+  const existingProduct = await getProductById(id);
+  if (!existingProduct) {
+    return null;
+  }
+  await deleteProduct(id);
+  return existingProduct;
 };

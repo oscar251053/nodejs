@@ -1,81 +1,104 @@
-# API de productos
+# API REST de Productos
 
-API REST desarrollada con Node.js y Express para consultar y administrar productos almacenados en Cloud Firestore. La autenticación de usuarios se realiza con Firebase Authentication y las operaciones privadas requieren un token JWT.
+API REST desarrollada con Node.js y Express para gestionar productos con Firebase Firestore. La autenticación de usuarios se realiza con Firebase Authentication y las operaciones sensibles requieren un token JWT válido.
+
+## Descripción
+
+Se implementó una API para:
+
+- Registrar e iniciar sesión de usuarios con Firebase Authentication.
+- Consultar todos los productos o uno por ID.
+- Crear, actualizar y eliminar productos mediante JWT.
+- Desplegar la aplicación en Vercel para acceso público.
+
+## Tecnologías
+
+- Node.js
+- Express
+- Firebase Firestore
+- Firebase Authentication
+- JWT
+- Vercel
 
 ## Requisitos
 
-- Node.js y npm.
-- Un proyecto de Firebase con Cloud Firestore.
-- Firebase Authentication habilitado con el proveedor de correo electrónico y contraseña.
-- Un usuario registrado en Firebase Authentication para iniciar sesión.
+- Node.js (v18+)
+- npm
+- Cuenta de Firebase con Firestore y Firebase Authentication habilitados
+- Cuenta de Vercel para despliegue
 
-## Instalación y configuración
+## Instalación
 
-1. Instala las dependencias desde la carpeta del proyecto:
+1. Clona el repositorio:
+
+   ```bash
+   git clone <url-del-repositorio>
+   cd src
+   ```
+
+2. Instala las dependencias:
 
    ```bash
    npm install
    ```
 
-2. Crea un archivo `.env` en la raíz del proyecto:
+3. Crea un archivo `.env` en la raíz del proyecto (puedes basarte en `.env.example`):
 
    ```env
    PORT=3000
-   JWT_SECRET=reemplazar-por-un-secreto-largo-y-aleatorio
+   JWT_SECRET=tu_secreto_seguro
+   FIREBASE_API_KEY=tu_api_key
+   FIREBASE_AUTH_DOMAIN=tu_proyecto.firebaseapp.com
+   FIREBASE_PROJECT_ID=tu_proyecto
+   FIREBASE_STORAGE_BUCKET=tu_proyecto.firebasestorage.app
+   FIREBASE_MESSAGING_SENDER_ID=tu_messaging_sender_id
+   FIREBASE_APP_ID=tu_app_id
    ```
 
-   `PORT` es opcional; si no se define, el servidor usa el puerto `3000`. `JWT_SECRET` es obligatorio para iniciar sesión y verificar los tokens. Usa un valor aleatorio y privado, y no lo compartas ni lo subas al repositorio.
-
-3. Configura los datos de tu proyecto Firebase en [`data/data.js`](./data/data.js). La configuración actual corresponde al proyecto Firebase definido allí. Asegúrate de que la aplicación tenga acceso a Firestore y crea la colección `products` si todavía no existe.
-
-4. Inicia el servidor:
+4. Inicia la aplicación:
 
    ```bash
-   npm run start
+   npm start
    ```
 
-   Cuando arranque, quedará disponible en `http://localhost:3000` (o en el puerto configurado).
+La API quedará disponible en:
 
-## Autenticación
-
-Envía las credenciales de un usuario de Firebase Authentication a `POST /auth/login`. Si son válidas, la API responde con un JWT que vence en una hora:
-
-```http
-POST /auth/login
-Content-Type: application/json
-
-{
-  "email": "usuario@ejemplo.com",
-  "password": "tu-contraseña"
-}
-```
-
-Respuesta:
-
-```json
-{
-  "token": "eyJ..."
-}
-```
-
-Para crear, actualizar o eliminar productos, incluye ese token en el encabezado:
-
-```http
-Authorization: Bearer TU_TOKEN
+```text
+http://localhost:3000
 ```
 
 ## Rutas
 
-| Método | Ruta | Acceso | Descripción |
-|---|---|---|---|
-| `POST` | `/auth/login` | Público | Valida credenciales y devuelve un JWT. |
-| `GET` | `/api/products` | Público | Devuelve todos los productos. |
-| `GET` | `/api/products/:id` | Público | Devuelve el producto con ese ID. |
-| `POST` | `/api/products/create` | JWT requerido | Crea un producto. |
-| `PUT` | `/api/products/:id` | JWT requerido | Actualiza un producto existente. |
-| `DELETE` | `/api/products/:id` | JWT requerido | Elimina un producto. |
+### Autenticación
 
-Para crear o actualizar un producto, envía JSON con un nombre no vacío y un precio numérico mayor o igual a cero:
+- `POST /auth/login`
+
+Ejemplo de request:
+
+```json
+{
+  "email": "usuario@ejemplo.com",
+  "password": "tu_contraseña"
+}
+```
+
+Respuesta esperada:
+
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+```
+
+### Productos
+
+- `GET /api/products` (público - obtiene todos los productos)
+- `GET /api/products/:id` (público - obtiene un producto por ID)
+- `POST /api/products/create` (requiere Bearer Token - crea un producto)
+- `PUT /api/products/:id` (requiere Bearer Token - actualiza un producto)
+- `DELETE /api/products/:id` (requiere Bearer Token - elimina un producto)
+
+### Ejemplo producto
 
 ```json
 {
@@ -84,57 +107,74 @@ Para crear o actualizar un producto, envía JSON con un nombre no vacío y un pr
 }
 ```
 
-El ID de cada producto se genera en Firestore y se incluye en las respuestas. Usa ese ID en las rutas de consulta, actualización y eliminación.
+## Autenticación JWT
 
-### Ejemplos con `curl`
+Para acceder a las rutas protegidas, enviar el token en el encabezado HTTP:
 
-Iniciar sesión:
-
-```bash
-curl.exe -X POST http://localhost:3000/auth/login -H "Content-Type: application/json" -d '{"email":"usuario@ejemplo.com","password":"tu-contraseña"}'
+```http
+Authorization: Bearer TU_TOKEN
 ```
 
-Consultar productos:
+## Despliegue en Vercel
 
-```bash
-curl.exe http://localhost:3000/api/products
+La aplicación fue desplegada y probada en producción con la siguiente URL pública:
+
+```text
+https://src-ten-sable-53.vercel.app
 ```
 
-Crear un producto (reemplaza `TU_TOKEN` por el JWT recibido):
+### Endpoints públicos verificados
 
-```bash
-curl.exe -X POST http://localhost:3000/api/products/create -H "Authorization: Bearer TU_TOKEN" -H "Content-Type: application/json" -d '{"name":"Teclado","price":25000}'
-```
+- `https://src-ten-sable-53.vercel.app/api/products`
+- `https://src-ten-sable-53.vercel.app/auth/login`
 
-Actualizar un producto:
+## Verificación final
 
-```bash
-curl.exe -X PUT http://localhost:3000/api/products/ID_DEL_PRODUCTO -H "Authorization: Bearer TU_TOKEN" -H "Content-Type: application/json" -d '{"name":"Teclado inalámbrico","price":30000}'
-```
+Checklist realizado:
 
-Eliminar un producto:
-
-```bash
-curl.exe -X DELETE http://localhost:3000/api/products/ID_DEL_PRODUCTO -H "Authorization: Bearer TU_TOKEN"
-```
-
-Los ejemplos usan `curl.exe`, disponible en Windows moderno. En macOS o Linux, puedes usar `curl` en lugar de `curl.exe`.
-
-## Respuestas de error
-
-- `400`: faltan credenciales o los datos del producto no son válidos.
-- `401`: las credenciales de inicio de sesión son incorrectas o falta el token de acceso.
-- `403`: el token JWT es inválido o expiró.
-- `404`: la ruta no existe o no se encontró el producto solicitado para consultar o actualizar.
-- `500`: error interno o de configuración del servidor.
-- `502`: Firebase Authentication no está disponible o no pudo procesar la solicitud.
+- [x] Configuración inicial de Node.js y ESModules (`type: module`, script `start`)
+- [x] Instalación de dependencias requeridas (`express`, `cors`, `body-parser`, `dotenv`, `firebase`, `jsonwebtoken`)
+- [x] Configuración de Express, CORS y middleware global body-parser
+- [x] Middleware 404 para rutas desconocidas y manejo de errores 400, 401, 403 y 500
+- [x] Capa de rutas (`products.routes.js` y `auth.routes.js`)
+- [x] Capa de controladores (`products.controller.js` y `auth.controller.js`)
+- [x] Capa de servicios (`products.service.js` y `auth.service.js`)
+- [x] Capa de modelos (`products.model.js`) conectada a Firestore
+- [x] Middleware de autenticación JWT y rutas protegidas
+- [x] Proyecto desplegado en Vercel y URL pública activa
 
 ## Estructura del proyecto
 
-- `index.js`: configura Express, CORS, JSON y las rutas.
-- `routes/`: define las rutas de autenticación y productos.
-- `controllers/`: procesa las solicitudes y respuestas HTTP.
-- `services/`: valida datos y coordina las operaciones.
-- `models/`: consulta y modifica los documentos de Firestore.
-- `middlewares/`: verifica los tokens JWT.
-- `data/`: inicializa y configura Firebase.
+```text
+src/
+├── controllers/
+│   ├── auth.controller.js
+│   └── products.controller.js
+├── data/
+│   └── data.js
+├── middlewares/
+│   └── auth.middleware.js
+├── models/
+│   └── products.model.js
+├── routes/
+│   ├── auth.routes.js
+│   └── products.routes.js
+├── services/
+│   ├── auth.service.js
+│   └── products.service.js
+├── .env
+├── .env.example
+├── index.js
+├── package.json
+├── README.md
+└── vercel.json
+```
+
+## Observaciones
+
+- La ruta raíz `/` devuelve `404`, ya que la API expone endpoints específicos como `/api/products` y `/auth/login`.
+- Los productos se almacenan en la colección `products` de Firestore.
+
+## Autor
+
+Proyecto finalizado y validado según los requerimientos de la consigna PFI.
