@@ -42,7 +42,7 @@ Se implementó una API para:
    npm install
    ```
 
-3. Crea un archivo `.env` en la raíz del proyecto (puedes basarte en `.env.example`):
+3. Crea un archivo `.env` en la raíz del proyecto con las variables necesarias:
 
    ```env
    PORT=3000
@@ -163,7 +163,6 @@ src/
 │   ├── auth.service.js
 │   └── products.service.js
 ├── .env
-├── .env.example
 ├── index.js
 ├── package.json
 ├── README.md
