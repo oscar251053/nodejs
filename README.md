@@ -31,20 +31,15 @@ Se implementó una API para:
 
 1. Clona el repositorio:
 
-   ```bash
    git clone <url-del-repositorio>
    cd src
-   ```
 
 2. Instala las dependencias:
 
-   ```bash
    npm install
-   ```
 
 3. Crea un archivo `.env` en la raíz del proyecto con las variables necesarias:
 
-   ```env
    PORT=3000
    JWT_SECRET=tu_secreto_seguro
    FIREBASE_API_KEY=tu_api_key
@@ -53,42 +48,20 @@ Se implementó una API para:
    FIREBASE_STORAGE_BUCKET=tu_proyecto.firebasestorage.app
    FIREBASE_MESSAGING_SENDER_ID=tu_messaging_sender_id
    FIREBASE_APP_ID=tu_app_id
-   ```
-
+   
 4. Inicia la aplicación:
 
-   ```bash
    npm start
-   ```
-
+  
 La API quedará disponible en:
 
-```text
 http://localhost:3000
-```
 
-## Rutas
 
 ### Autenticación
 
 - `POST /auth/login`
 
-Ejemplo de request:
-
-```json
-{
-  "email": "usuario@ejemplo.com",
-  "password": "tu_contraseña"
-}
-```
-
-Respuesta esperada:
-
-```json
-{
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-}
-```
 
 ### Productos
 
@@ -98,30 +71,19 @@ Respuesta esperada:
 - `PUT /api/products/:id` (requiere Bearer Token - actualiza un producto)
 - `DELETE /api/products/:id` (requiere Bearer Token - elimina un producto)
 
-### Ejemplo producto
-
-```json
-{
-  "name": "Teclado",
-  "price": 25000
-}
-```
 
 ## Autenticación JWT
 
 Para acceder a las rutas protegidas, enviar el token en el encabezado HTTP:
 
-```http
 Authorization: Bearer TU_TOKEN
-```
 
 ## Despliegue en Vercel
 
 La aplicación fue desplegada y probada en producción con la siguiente URL pública:
 
-```text
 https://src-ten-sable-53.vercel.app
-```
+
 
 ### Endpoints públicos verificados
 
@@ -145,7 +107,6 @@ Checklist realizado:
 
 ## Estructura del proyecto
 
-```text
 src/
 ├── controllers/
 │   ├── auth.controller.js
@@ -167,13 +128,8 @@ src/
 ├── package.json
 ├── README.md
 └── vercel.json
-```
 
 ## Observaciones
 
 - La ruta raíz `/` devuelve `404`, ya que la API expone endpoints específicos como `/api/products` y `/auth/login`.
 - Los productos se almacenan en la colección `products` de Firestore.
-
-## Autor
-
-Proyecto finalizado y validado según los requerimientos de la consigna PFI.
